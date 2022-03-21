@@ -1,0 +1,19 @@
+.message--container {
+  width: 100%;
+  margin: 10px 0px;
+  background-color: #034159;
+  color: white;
+}
+
+.message--container h3 {
+  color: #0cf25d;
+  font-size: 1.6rem;
+}
+
+.message--container p {
+  font-size: 1.4rem;
+}
+
+.message--container h4 {
+  font-size: 1.2rem;
+}

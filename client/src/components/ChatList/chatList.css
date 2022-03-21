@@ -1,0 +1,35 @@
+.chat-list {
+  background-color: #034159;
+  color: white;
+  width: 30%;
+}
+
+.chat-list--searcher {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.chat-list--searcher input {
+  width: 80%;
+  height: 30px;
+}
+
+.chat-list--searcher button {
+  width: 40px;
+  height: 30px;
+  margin: 0px 5px;
+}
+
+.chat-list--container {
+  height: 92vh;
+  overflow-y: scroll;
+}
+.chat-message {
+  height: 90px;
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0px;
+  font-size: 1.4rem;
+}
