@@ -3,9 +3,28 @@ const app = express()
 const http = require('http')
 const cors = require('cors')
 const { Server } = require('socket.io')
+const connectionMysql = require('./mysql/mysql')
+const routerApi = require('./routes')
 
+
+// Mysql
+connectionMysql.connect(function(e){
+    if(e) {
+        throw e
+    } else {
+        console.log('Conexión exitosa')
+    }
+});
+
+app.use(express.json())
 app.use(cors())
 
+
+// ROUTER
+routerApi(app)
+
+
+// Socket
 const server = http.createServer(app)
 const io = new Server(server, {
     cors: {
