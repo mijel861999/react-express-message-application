@@ -1,24 +1,55 @@
-import React,{useEffect, useState, useRef} from 'react'
+import React,{useEffect, useRef, useState} from 'react'
 import Message from '../Message/Message'
 
 import './chat.css'
 
+const listMessageInitialState = [
+  {
+    roomId: 'mijel861999-angel861999',
+    author: 'mijel861999',
+    message: 'Hola, qué tal va todo',
+    time: '04:20'
+  },
+  {
+    roomId: 'mijel861999-angel861999',
+    author: 'mijel861999',
+    message: 'Hola, qué tal va todo2',
+    time: '04:20'
+  },
+  {
+    roomId: 'mijel861999-angel861999',
+    author: 'mijel861999',
+    message: 'Hola, qué tal va todo3',
+    time: '04:20'
+  }
+]
+
 export const Chat = ({socket, roomId, author}) => {
-
-  console.log(roomId)
-
-  const [listMessage, setListMessage] = useState([])
+  const [listMessage, setListMessage] = useState(listMessageInitialState)
   const [message, setMessage] = useState('')
+  const chatContainerRef = useRef()
+  
 
-  const messageContainer = useRef() 
+  // RECIBE MENSAJE
+  useEffect(() => {
+    socket.on('receive_message', messg => {
+      const listCopy = listMessage
+      listCopy.push(messg)
+      setListMessage(listCopy) 
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight
+      setMessage(message => message + ' ')
+    })
+  }, [socket])
 
   const handleInputChange = ({target}) => {
     setMessage(target.value)
   }
 
+  // ENVÍA MENSAJE
   const handleSubmit = async (e) => {
     e.preventDefault()
 
+    // mensaje
     const messg = {
       roomId,
       author,
@@ -29,39 +60,33 @@ export const Chat = ({socket, roomId, author}) => {
         new Date(Date.now()).getMinutes(),
     }
 
-    const messageResponse = await socket.emit('send_message', messg)
-    const inputMessageContainer = document.getElementById('message-input')
-    inputMessageContainer.value = ''
+    // envia mensaje
+    await socket.emit('send_message', messg)
 
     const listCopy = listMessage
-    listCopy.push(messg.message)
+    listCopy.push(messg)
 
+    // Agregando el mensaje a la lista de mensajes
     setListMessage(listCopy)
+    setMessage('')
+    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight  
   }
-
-  useEffect(() => {
-    socket.on('receive_message', messg => {
-        const listCopy = listMessage
-        listCopy.push(messg.message)
-        setListMessage(listCopy)
-        // setListMessage([...listMessage, messg.message])
-        console.log(listMessage)
-        // const newMessage = document.createElement('h3')
-        // newMessage.innerText = messg.message
-        // messageContainer.current.appendChild(newMessage)
-    })
-  }, [socket])
+ 
 
   if (roomId !== '') {
+    console.log('Renderiza el chat')
     return (
       <div className='chat'>
         <div
-          ref={messageContainer}
           className='messages'
+          ref={chatContainerRef}
         >
           {
             listMessage.map( (message, index) => (
-              <Message key={index}>
+              <Message
+                key={index}
+                message={message}
+              >
               </Message>
             ))
           }  
