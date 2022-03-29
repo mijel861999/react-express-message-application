@@ -16,7 +16,7 @@ const chats = [
     lastMessage: 'Hola Angel, podrías pagarme la plata que me debes?',
     hour: '04:24',
     roomId: 'mijel861999-angel861999'
-  }
+  },
 ]
   
 
@@ -24,17 +24,20 @@ const ChatPage = ({socket, author}) => {
 
   const [listChats, setListChats] = useState(chats)
   const [roomId, setRoomId] = useState('')
+  const [receivor, setReceivor] = useState('')
 
   return (
     <div className='chat--page'>
         <ChatList
           author={author}
           socket={socket}
+          setReceivor={setReceivor}
           listChats={listChats}
           setListChats={setListChats}
           setRoomId={setRoomId}
         />
         <Chat 
+          receivor={receivor}
           socket={socket}
           roomId={roomId}
           author={author}

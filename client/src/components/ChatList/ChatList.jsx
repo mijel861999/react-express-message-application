@@ -17,10 +17,11 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
-const ChatList = ({author, socket ,listChats, setListChats, setRoomId}) => {
+const ChatList = ({author, socket, setReceivor ,listChats, setListChats, setRoomId}) => {
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [nameReceivor, setNameReceivor] = useState('')
+  const [searchInput, setSearchInput] = useState('')
 
   const openModal = () => {
     setModalIsOpen(true)
@@ -33,6 +34,10 @@ const ChatList = ({author, socket ,listChats, setListChats, setRoomId}) => {
   const handleInputChange = ({target}) => {
     setNameReceivor(target.value)
   }
+
+  const handleSearchInputChange = ({target}) => {
+    setSearchInput(target.value)
+  }  
 
   const handleCreate = (e) => {
     e.preventDefault()
@@ -74,7 +79,11 @@ const ChatList = ({author, socket ,listChats, setListChats, setRoomId}) => {
         </div> 
       </Modal>
       <div className='chat-list--searcher'>
-          <input placeholder='Buscar...'/>
+          <input
+            placeholder='Buscar...'
+            onChange={handleSearchInputChange}
+            value={searchInput}
+          />
           <button
             onClick={openModal} 
           >
@@ -84,12 +93,13 @@ const ChatList = ({author, socket ,listChats, setListChats, setRoomId}) => {
       </div>
       <div className='chat-list--container'>
         {
-          listChats.map( (chat, index) => (
-              <ChatMessage 
+          listChats.filter(chat => chat.receiver.includes(searchInput)).map( (chat, index) => (
+            <ChatMessage 
                 key={index}
                 socket={socket}
                 chat={chat}
                 setRoomId={setRoomId}
+                setReceivor={setReceivor}
               />
           ))
         } 

@@ -46,11 +46,10 @@ const listMessageInitialState1 = [
   }
 ]
 
-export const Chat = ({socket, roomId, author}) => {
+export const Chat = ({receivor ,socket, roomId, author}) => {
   const [listMessage, setListMessage] = useState(listMessageInitialState)
   const [message, setMessage] = useState('')
-  const chatContainerRef = useRef()
-  
+  const chatContainerRef = useRef() 
 
   // RECIBE MENSAJE
   useEffect(() => {
@@ -110,6 +109,9 @@ export const Chat = ({socket, roomId, author}) => {
               ref={chatContainerRef}
             >
               {
+                <h1>{receivor}</h1>
+              }
+              {
                 listMessage.map( (message, index) => 
                   (message.author == author) ? (
                     <MessageAuthor
@@ -149,47 +151,4 @@ export const Chat = ({socket, roomId, author}) => {
       }
     </div>
   ) 
-
-  // if (roomId !== '') {
-  //   console.log('Renderiza el chat')
-  //   return (
-  //     <div className='chat'>
-  //       <div
-  //         className='messages'
-  //         ref={chatContainerRef}
-  //       >
-  //         {
-  //           listMessage.map( (message, index) => (
-  //             <Message
-  //               key={index}
-  //               message={message}
-  //             >
-  //             </Message>
-  //           ))
-  //         }  
-  //       </div>
-  //       <form
-  //         onSubmit={handleSubmit}
-  //         className='input-container'
-  //       >
-  //           <input
-  //             id='message-input'
-  //             type='text'
-  //             value={message}
-  //             onChange={handleInputChange}
-  //             autoComplete='off'
-  //             name='message'
-  //             placeholder='Mensaje...'
-  //           />
-  //           <button>Send</button>
-  //       </form>
-  //     </div>
-  //   )
-  // }else {
-  //   return (
-  //     <div className='chat'>
-  //       Abre un chat para poder conversar!
-  //     </div> 
-  //   )
-  // } 
 }

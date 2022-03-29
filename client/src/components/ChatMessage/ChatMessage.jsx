@@ -2,11 +2,12 @@ import React from 'react'
 
 import './chatMessage.css'
 
-const ChatMessage = ({socket ,chat, setRoomId}) => {
+const ChatMessage = ({socket ,chat, setRoomId, setReceivor}) => {
 
   const handleActiveRoom = () => {
     setRoomId(chat.roomId)
     socket.emit('join_room', chat.roomId)
+    setReceivor(chat.receiver)
   }
 
   return (
