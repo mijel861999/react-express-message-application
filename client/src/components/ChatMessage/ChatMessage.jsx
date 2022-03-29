@@ -5,7 +5,6 @@ import './chatMessage.css'
 const ChatMessage = ({socket ,chat, setRoomId}) => {
 
   const handleActiveRoom = () => {
-    console.log(chat.roomId)
     setRoomId(chat.roomId)
     socket.emit('join_room', chat.roomId)
   }
@@ -16,6 +15,7 @@ const ChatMessage = ({socket ,chat, setRoomId}) => {
       onClick={handleActiveRoom}
     >
       <h1>{chat.receiver}</h1> 
+      <p><b>{chat.roomId}</b></p>
       <p>{chat.lastMessage}</p>
       <h3>{chat.hour}</h3>
     </div>

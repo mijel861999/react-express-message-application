@@ -14,7 +14,8 @@ export const Login = ({socket, user, password, roomId, setLoginInputs, loginInpu
   }
 
   return ( 
-    <form
+    <div>
+      <form
       className='login-form'
       onSubmit={handleLogin}
     >
@@ -42,6 +43,7 @@ export const Login = ({socket, user, password, roomId, setLoginInputs, loginInpu
         <button>
           Login to sala
         </button>
-    </form> 
+      </form>
+    </div> 
   )
 }

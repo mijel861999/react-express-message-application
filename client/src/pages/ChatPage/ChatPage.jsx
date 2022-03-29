@@ -28,6 +28,7 @@ const ChatPage = ({socket, author}) => {
   return (
     <div className='chat--page'>
         <ChatList
+          author={author}
           socket={socket}
           listChats={listChats}
           setListChats={setListChats}
