@@ -1,13 +1,16 @@
 import React from 'react'
 
+import { useDispatch } from 'react-redux'
+import { messageStartSetRoomId, messageChangeReceivor } from '../../actions/events'
+
 import './chatMessage.css'
 
-const ChatMessage = ({socket ,chat, setRoomId, setReceivor}) => {
+const ChatMessage = ({ chat }) => {
+  const dispatch = useDispatch()
 
   const handleActiveRoom = () => {
-    setRoomId(chat.roomId)
-    socket.emit('join_room', chat.roomId)
-    setReceivor(chat.receiver)
+    dispatch(messageChangeReceivor(chat.receiver))
+    dispatch(messageStartSetRoomId(chat.roomId))
   }
 
   return (
@@ -15,7 +18,7 @@ const ChatMessage = ({socket ,chat, setRoomId, setReceivor}) => {
       className='chat-message'
       onClick={handleActiveRoom}
     >
-      <h1>{chat.receiver}</h1> 
+      <h1>{chat.receiver}</h1>
       <p><b>{chat.roomId}</b></p>
       <p>{chat.lastMessage}</p>
       <h3>{chat.hour}</h3>

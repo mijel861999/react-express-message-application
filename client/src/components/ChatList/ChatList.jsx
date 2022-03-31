@@ -1,23 +1,30 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import ChatMessage from '../ChatMessage/ChatMessage'
 import Modal from 'react-modal'
 
 import './chatList.css'
 
+// Actions
+import { messageAddChat } from '../../actions/events'
+
 const customStyles = {
-  content : {
+  content: {
     top: '50%',
     left: '50%',
     right: 'auto',
     bottom: 'auto',
     marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
+    transform: 'translate(-50%, -50%)'
   }
 }
 
-Modal.setAppElement('#root');
+Modal.setAppElement('#root')
 
-const ChatList = ({author, socket, setReceivor ,listChats, setListChats, setRoomId}) => {
+const ChatList = () => {
+  const dispatch = useDispatch()
+  const { user } = useSelector(state => state.auth)
+  const { listChats } = useSelector(state => state.messages)
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [nameReceivor, setNameReceivor] = useState('')
@@ -31,78 +38,72 @@ const ChatList = ({author, socket, setReceivor ,listChats, setListChats, setRoom
     setModalIsOpen(false)
   }
 
-  const handleInputChange = ({target}) => {
+  const handleInputChange = ({ target }) => {
     setNameReceivor(target.value)
   }
 
-  const handleSearchInputChange = ({target}) => {
+  const handleSearchInputChange = ({ target }) => {
     setSearchInput(target.value)
-  }  
+  }
 
   const handleCreate = (e) => {
     e.preventDefault()
-    setListChats([...listChats, {
+    dispatch(messageAddChat({
       receiver: nameReceivor,
       lastMessage: 'No ha habido mensajes aún',
-      hour: new Date(Date.now()).getHours() + 
-        ':' + 
+      hour: new Date(Date.now()).getHours() +
+        ':' +
         new Date(Date.now()).getMinutes(),
-      roomId: author + '-' + nameReceivor
-    }])
+      roomId: user + '-' + nameReceivor
+    }))
     closeModal()
     setNameReceivor('')
   }
-
-  
   return (
     <div className='chat-list'>
       <Modal
-        isOpen={modalIsOpen} 
+        isOpen={modalIsOpen}
         style={customStyles}
       >
         <div className='modal'>
           <button
-            onClick={closeModal} 
+            onClick={closeModal}
             className='modal-close--button'
           >
             close
           </button>
           <form>
             <label>Usuario</label>
-            <input 
-              placeholder='Nombre del usuario...' 
+            <input
+              placeholder='Nombre del usuario...'
               onChange={handleInputChange}
               value={nameReceivor}
             />
             <button onClick={handleCreate}>Crear</button>
           </form>
-        </div> 
+        </div>
       </Modal>
       <div className='chat-list--searcher'>
-          <input
-            placeholder='Buscar...'
-            onChange={handleSearchInputChange}
-            value={searchInput}
-          />
-          <button
-            onClick={openModal} 
-          >
-            +
-          </button>
-          
+        <input
+          placeholder='Buscar...'
+          onChange={handleSearchInputChange}
+          value={searchInput}
+        />
+        <button
+          onClick={openModal}
+        >
+          +
+        </button>
       </div>
       <div className='chat-list--container'>
         {
-          listChats.filter(chat => chat.receiver.includes(searchInput)).map( (chat, index) => (
-            <ChatMessage 
-                key={index}
-                socket={socket}
-                chat={chat}
-                setRoomId={setRoomId}
-                setReceivor={setReceivor}
-              />
+          listChats.filter(chat => chat.receiver.includes(searchInput)).map((chat, index) => (
+            <ChatMessage
+              key={index}
+              chat={chat}
+            />
           ))
-        } 
+        }
       </div>
     </div>
   )

@@ -1,49 +1,60 @@
-import React, {forwardRef, useImperativeHandle, useState} from 'react'
+import React from 'react'
+
+// Redux
+import { useDispatch } from 'react-redux'
+
+// Hooks
+import { useForm } from '../../hooks/useForm'
+
+// Styles
 import './login.css'
 
-export const Login = ({socket, user, password, roomId, setLoginInputs, loginInputs, setLoged}) => {
+// Actions
+import { SetLogin } from '../../actions/auth'
 
-  const handleInputChange = ({ target }) => {
-    setLoginInputs({...loginInputs, [target.name]: target.value})
-  }
+export const Login = () => {
+  const dispatch = useDispatch()
+
+  const [formLoginInputs, handleInputChange] = useForm({
+    lUser: 'mijelpalcabello',
+    lPassword: 'miguel861999'
+  })
+
+  const { lUser, lPassword } = formLoginInputs
 
   const handleLogin = (e) => {
     e.preventDefault()
-    // socket.emit('join_room', roomId)
-    setLoged(true)
+    dispatch(SetLogin({ user: lUser, password: lPassword }))
   }
 
-  return ( 
-    <div>
+  return (
+    <div className='login--container'>
+      <h1>LOGIN</h1>
       <form
-      className='login-form'
-      onSubmit={handleLogin}
-    >
+        className='login-form'
+        onSubmit={handleLogin}
+      >
         <input
-            type='text'
-            placeholder='Usuario'
-            name='user'
-            value={user}
-            onChange={handleInputChange}
-        /> 
-        <input
-            type='password'
-            placeholder='Contraseña'
-            name='password'
-            value={password}
-            onChange={handleInputChange}
+          type='text'
+          placeholder='Usuario'
+          name='lUser'
+          value={lUser}
+          onChange={handleInputChange}
         />
         <input
-            type='text'
-            placeholder='RoomId'
-            name='roomId'
-            value={roomId}
-            onChange={handleInputChange}
+          type='password'
+          placeholder='Contraseña'
+          name='lPassword'
+          value={lPassword}
+          onChange={handleInputChange}
         />
         <button>
-          Login to sala
+          Ingresar
+        </button>
+        <button>
+          Registro
         </button>
       </form>
-    </div> 
+    </div>
   )
 }

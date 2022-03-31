@@ -1,6 +1,26 @@
+.login--container h1 {
+  font-size: 3rem;
+  text-align: center;
+  color: white;
+}
+
 .login-form {
   display: flex;
   flex-direction: column;
+}
+
+.login-form button {
+  margin: 8px 0px;
+  padding: 6px 20px;
+  font-size: 1.4rem;
+  background-color: #0cf25d;
+  border: none;
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+.login-form button:hover {
+  background-color: #0bc54c;
 }
 
 input {

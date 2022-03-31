@@ -1,47 +1,16 @@
-import React, {useState} from 'react'
+import React from 'react'
+
+// Components
 import { Chat } from '../../components/Chat/Chat'
 import ChatList from '../../components/ChatList/ChatList'
 
 import './chatPage.css'
 
-const chats = [
-  {
-    receiver: 'Miguel',
-    lastMessage: 'Hola Miguel, cómo anda todo?',
-    hour: '04:20',
-    roomId: 'mijel861999-miguel861999'
-  },
-  {
-    receiver: 'Angel',
-    lastMessage: 'Hola Angel, podrías pagarme la plata que me debes?',
-    hour: '04:24',
-    roomId: 'mijel861999-angel861999'
-  },
-]
-  
-
-const ChatPage = ({socket, author}) => {
-
-  const [listChats, setListChats] = useState(chats)
-  const [roomId, setRoomId] = useState('')
-  const [receivor, setReceivor] = useState('')
-
+const ChatPage = () => {
   return (
     <div className='chat--page'>
-        <ChatList
-          author={author}
-          socket={socket}
-          setReceivor={setReceivor}
-          listChats={listChats}
-          setListChats={setListChats}
-          setRoomId={setRoomId}
-        />
-        <Chat 
-          receivor={receivor}
-          socket={socket}
-          roomId={roomId}
-          author={author}
-        />
+      <ChatList />
+      <Chat />
     </div>
   )
 }

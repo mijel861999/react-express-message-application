@@ -1,48 +1,30 @@
-import React, {useRef, useState, useContext} from 'react'
-import './App.css'
-import io from 'socket.io-client'
+import React from 'react'
+
+// Components
 import { Login } from './components/Login/Login'
-import { Chat } from './components/Chat/Chat'
+
+// Pages
 import ChatPage from './pages/ChatPage/ChatPage'
-import { Context } from './store/Store'
 
+// Redux
+import { useSelector } from 'react-redux'
 
-const socket = io.connect('http://localhost:3001')
+// Styles
+import './App.css'
 
-function App() {
-  const [loginInputs, setLoginInputs] = useState({
-    user: 'mijelpalcabello',
-    password: 'miguel861999',
-    roomId: 'room1'
-  })
-
-  const [state, dispatch] = useContext(Context)
-
-  console.log(state)
-  const {user, password, roomId} = loginInputs
-
-  const [loged, setLoged] = useState(false);
+function App () {
+  const { isLogged } = useSelector(state => state.auth)
 
   return (
-    <div className="App">
+    <div className='App'>
       {
-        loged ? (
-          <ChatPage
-            socket={socket}
-            author={user}
-          />
-        ) : (
-          <Login
-            socket={socket}
-            user={user}
-            password={password}
-            roomId={roomId}
-            loginInputs={loginInputs}
-            setLoginInputs={setLoginInputs}
-            setLoged={setLoged}
-          />
-          
-        )
+        isLogged
+          ? (
+            <ChatPage />
+            )
+          : (
+            <Login />
+            )
       }
     </div>
   )

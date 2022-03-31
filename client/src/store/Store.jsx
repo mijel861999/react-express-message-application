@@ -1,29 +1,12 @@
-import React, {createContext, useReducer} from 'react'
+import { createStore, compose, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
+import { rootReducer } from '../reducers/rootReducer'
 
-const initialState = {
-    ola: 'Hola',
-    user: '',
-    password: '',
-    roomId: '',
-    socket: null,
-}
+const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
 
-export const Context = createContext(initialState)
-
-export const Store = ({ children }) => {
-  const [state, dispatch] = useReducer((state, action) => {
-    switch (action.type) {
-      case 'SET_USER':
-        return {
-            ...state,
-            user: action.payload
-        }
-    }      
-  }, initialState) 
-
-  return (
-    <Context.Provider value={[ state, dispatch ]}>  
-        {children}
-    </Context.Provider>
+export const store = createStore(
+  rootReducer,
+  composeEnhancers(
+    applyMiddleware(thunk)
   )
-}
+)
