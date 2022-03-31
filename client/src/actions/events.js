@@ -29,3 +29,13 @@ export const messageChangeReceivor = (receivor) => ({
   type: types.messageChangeReceivor,
   payload: receivor
 })
+
+export const messageLoadMessages = (messages) => ({
+  type: types.messageLoadMessages,
+  payload: messages
+})
+
+export const messageAddMessage = (message) => ({
+  type: types.messageAddMessage,
+  payload: message
+})

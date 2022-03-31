@@ -1,80 +1,35 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { messageSendMessage } from '../../actions/events'
 import { socket } from '../../Socket/Socket'
 import Message from '../Message/Message'
 import MessageAuthor from '../MessageAuthor/MessageAuthor'
 
+// Actions
+import { messageLoadMessages, messageSendMessage, messageAddMessage } from '../../actions/events'
+
 import './chat.css'
-
-const listMessageInitialState = [
-  {
-    roomId: 'mijel861999-angel861999',
-    author: 'mijel861999',
-    message: 'Hola, qué tal va todo',
-    time: '04:20'
-  },
-  {
-    roomId: 'mijel861999-angel861999',
-    author: 'mijel861999',
-    message: 'Hola, qué tal va todo2',
-    time: '04:20'
-  },
-  {
-    roomId: 'mijel861999-angel861999',
-    author: 'mijel861999',
-    message: 'Hola, qué tal va todo3',
-    time: '04:20'
-  }
-]
-
-// const listMessageInitialState1 = [
-//   {
-//     roomId: 'mijel861999-angel861999',
-//     author: 'mijel861999',
-//     message: 'Hola, qué tal va todo',
-//     time: '04:20'
-//   },
-//   {
-//     roomId: 'mijel861999-angel861999',
-//     author: 'mijel861999',
-//     message: 'Hola, qué tal va todo2',
-//     time: '04:20'
-//   },
-//   {
-//     roomId: 'mijel861999-angel861999',
-//     author: 'mijel861999',
-//     message: 'Hola, qué tal va todo3',
-//     time: '04:20'
-//   }
-// ]
 
 export const Chat = () => {
   const dispatch = useDispatch()
-  const { receivor } = useSelector(state => state.messages)
+  const { receivor, roomId, listMessages } = useSelector(state => state.messages)
 
-  const { roomId } = useSelector(state => state.messages)
   const { user } = useSelector(state => state.auth)
 
-  const [listMessage, setListMessage] = useState(listMessageInitialState)
   const [message, setMessage] = useState('')
   const chatContainerRef = useRef()
 
   // RECIBE MENSAJE
   useEffect(() => {
     socket.on('receive_message', messg => {
-      const listCopy = listMessage
-      listCopy.push(messg)
-      setListMessage(listCopy)
+      dispatch(messageAddMessage(messg))
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight
-      setMessage(message => message + ' ')
     })
   }, [socket])
 
+  // Cargar mensajes
   useEffect(() => {
-    setListMessage([])
-    // TODO: Hacer llamado a la api para cambiar ListMessage
+    dispatch(messageLoadMessages([]))
   }, [roomId])
 
   const handleInputChange = ({ target }) => {
@@ -98,13 +53,7 @@ export const Chat = () => {
 
     // envia mensaje
     dispatch(messageSendMessage(messg))
-    // await socket.emit('send_message', messg)
-
-    const listCopy = listMessage
-    listCopy.push(messg)
-
-    // Agregando el mensaje a la lista de mensajes
-    setListMessage(listCopy)
+    dispatch(messageAddMessage(messg))
     setMessage('')
     chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight
   }
@@ -121,7 +70,7 @@ export const Chat = () => {
               >
                 <h1>{receivor}</h1>
                 {
-                  listMessage.map((message, index) =>
+                  listMessages.map((message, index) =>
                     (message.user === user)
                       ? (
                         <MessageAuthor

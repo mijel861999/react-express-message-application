@@ -2,24 +2,24 @@ import { types } from '../types/types'
 
 const initialState = {
   listMessages: [
-    {
-      roomId: 'mijel861999-angel861999',
-      author: 'mijel861999',
-      message: 'Hola, qué tal va todo',
-      time: '04:20'
-    },
-    {
-      roomId: 'mijel861999-angel861999',
-      author: 'mijel861999',
-      message: 'Hola, qué tal va todo2',
-      time: '04:20'
-    },
-    {
-      roomId: 'mijel861999-angel861999',
-      author: 'mijel861999',
-      message: 'Hola, qué tal va todo3',
-      time: '04:20'
-    }
+    // {
+    //   roomId: 'mijel861999-angel861999',
+    //   author: 'mijel861999',
+    //   message: 'Hola, qué tal va todo',
+    //   time: '04:20'
+    // },
+    // {
+    //   roomId: 'mijel861999-angel861999',
+    //   author: 'mijel861999',
+    //   message: 'Hola, qué tal va todo2',
+    //   time: '04:20'
+    // },
+    // {
+    //   roomId: 'mijel861999-angel861999',
+    //   author: 'mijel861999',
+    //   message: 'Hola, qué tal va todo3',
+    //   time: '04:20'
+    // }
   ],
   listChats: [
     {
@@ -55,6 +55,16 @@ export const messageReducer = (state = initialState, action) => {
       return {
         ...state,
         receivor: action.payload
+      }
+    case types.messageLoadMessages:
+      return {
+        ...state,
+        listMessages: action.payload
+      }
+    case types.messageAddMessage:
+      return {
+        ...state,
+        listMessages: [...state.listMessages, action.payload]
       }
     default:
       return state

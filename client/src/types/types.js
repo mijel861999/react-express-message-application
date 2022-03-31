@@ -5,6 +5,9 @@ export const types = {
 
   messageAddChat: '[events] Add chat',
 
+  messageLoadMessages: '[events] Load messages',
+  messageAddMessage: '[events] Add message',
+
   messageChangeReceivor: '[events] Change receivor',
 
   authLogin: '[auth] Login'
