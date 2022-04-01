@@ -3,8 +3,6 @@ import React from 'react'
 import './MessageAuthor.css'
 
 const MessageAuthor = ({ message }) => {
-  console.log(message.author)
-
   return (
     <div className='message-author--container'>
       <h3>{message.user}</h3>

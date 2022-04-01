@@ -15,7 +15,7 @@ const ChatMessage = ({ chat }) => {
 
   return (
     <div
-      className='chat-message'
+      className={`chat-message ${chat.isRead ? '' : 'chat-message__active'}`}
       onClick={handleActiveRoom}
     >
       <h1>{chat.receiver}</h1>

@@ -6,13 +6,13 @@ import Message from '../Message/Message'
 import MessageAuthor from '../MessageAuthor/MessageAuthor'
 
 // Actions
-import { messageLoadMessages, messageSendMessage, messageAddMessage } from '../../actions/events'
+import { messageLoadMessages, messageSendMessage, messageAddMessage, messageReceiveMessage } from '../../actions/events'
 
 import './chat.css'
 
 export const Chat = () => {
   const dispatch = useDispatch()
-  const { receivor, roomId, listMessages } = useSelector(state => state.messages)
+  const { listMessages, roomId, receivor } = useSelector(state => state.messages)
 
   const { user } = useSelector(state => state.auth)
 
@@ -21,10 +21,16 @@ export const Chat = () => {
 
   // RECIBE MENSAJE
   useEffect(() => {
-    socket.on('receive_message', messg => {
-      dispatch(messageAddMessage(messg))
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight
-    })
+    dispatch(messageReceiveMessage())
+    // socket.on('receive_message', messg => {
+    //   if (roomId === messg.roomId) {
+    //     console.log('Nuevo mensaje de ' + messg.roomId + ', estás en el chat ' + roomId)
+    //     dispatch(messageAddMessage(messg))
+    //   } else {
+    //     console.log('Tienes un mensaje nuevo del server ' + messg.roomId + ', estás en el chat ' + roomId)
+    //     console.log(roomId)
+    //   }
+    // })
   }, [socket])
 
   // Cargar mensajes

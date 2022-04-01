@@ -2,8 +2,6 @@ import React from 'react'
 import './message.css'
 
 const Message = ({ message }) => {
-  console.log(message)
-
   return (
     <div className='message--container'>
       <h3>{message.user}</h3>

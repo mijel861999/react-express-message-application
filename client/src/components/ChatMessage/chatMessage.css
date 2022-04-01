@@ -1,3 +1,8 @@
 .chat-message {
+  height: 120px !important;
   cursor: pointer;
+}
+
+.chat-message__active {
+  background-color: #0ac24a;
 }
