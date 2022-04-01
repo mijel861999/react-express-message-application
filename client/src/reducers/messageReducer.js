@@ -77,7 +77,7 @@ export const messageReducer = (state = initialState, action) => {
     case types.messageSetNewMessage:
       return {
         ...state,
-        listChats: state.listChats.map(chat => {
+        listChats: state.listChats.map((chat) => {
           if (chat.roomId === action.payload.roomId) {
             chat.lastMessage = action.payload.message
             chat.hour = action.payload.time

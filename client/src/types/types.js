@@ -3,6 +3,7 @@ export const types = {
   messageSetRoomId: '[events] Set room id',
   messageSendMessage: '[events] Send message',
   messageReceiveMessage: '[events] Receive message',
+  messagePutFirstMessage: '[events] Put first message',
 
   messageAddChat: '[events] Add chat',
 

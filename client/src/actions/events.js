@@ -14,10 +14,17 @@ export const messageJoinAllRooms = () => {
 export const messageReceiveMessage = () => {
   return (dispatch, getState) => {
     socket.on('receive_message', messg => {
-      const { roomId } = getState().messages
+      const { roomId, listChats } = getState().messages
+      console.log(listChats)
       if (roomId === messg.roomId) {
         dispatch(messageAddMessage(messg))
       } else {
+        // const copyArray = listChats
+        listChats.forEach((chat, index) => {
+          if (chat.roomId === messg.roomId) {
+            listChats.push(...listChats.splice(0, index))
+          }
+        })
         dispatch(messageSetNewMessage(messg))
       }
     })
@@ -26,7 +33,6 @@ export const messageReceiveMessage = () => {
 
 export const messageStartSetRoomId = (roomId) => {
   return (dispatch) => {
-    // socket.emit('join_room', roomId)
     dispatch(messageSetRoomId(roomId))
   }
 }

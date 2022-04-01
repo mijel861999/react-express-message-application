@@ -22,15 +22,6 @@ export const Chat = () => {
   // RECIBE MENSAJE
   useEffect(() => {
     dispatch(messageReceiveMessage())
-    // socket.on('receive_message', messg => {
-    //   if (roomId === messg.roomId) {
-    //     console.log('Nuevo mensaje de ' + messg.roomId + ', estás en el chat ' + roomId)
-    //     dispatch(messageAddMessage(messg))
-    //   } else {
-    //     console.log('Tienes un mensaje nuevo del server ' + messg.roomId + ', estás en el chat ' + roomId)
-    //     console.log(roomId)
-    //   }
-    // })
   }, [socket])
 
   // Cargar mensajes
