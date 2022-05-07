@@ -1,15 +1,34 @@
 import { socket } from '../Socket/Socket'
 import { types } from '../types/types'
+import axios from 'axios'
 
 export const messageJoinAllRooms = () => {
   return (dispatch, getState) => {
     const { listChats } = getState().messages
 
+    console.log(listChats)
+
     listChats.forEach(chat => {
-      socket.emit('join_room', chat.roomId)
+      socket.emit('join_room', chat.room)
     })
   }
 }
+
+export const messageStartLoadChats = () => {
+  return (dispatch) => {
+    axios.get('http://localhost:3001/api/v1/chat/mijelpalcabello')
+      .then(res => {
+        console.log(res.data)
+        dispatch(messageLoadChats(res.data))
+        dispatch(messageJoinAllRooms())
+      })
+  }
+}
+
+const messageLoadChats = (chats) => ({
+  type: types.messageLoadChats,
+  payload: chats
+})
 
 export const messageReceiveMessage = () => {
   return (dispatch, getState) => {
@@ -17,6 +36,11 @@ export const messageReceiveMessage = () => {
       const { roomId, listChats } = getState().messages
       console.log(listChats)
       if (roomId === messg.roomId) {
+        listChats.forEach((chat, index) => {
+          if (chat.roomId === messg.roomId) {
+            listChats.push(...listChats.splice(0, index))
+          }
+        })
         dispatch(messageAddMessage(messg))
       } else {
         // const copyArray = listChats

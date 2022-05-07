@@ -59,6 +59,11 @@ export const messageReducer = (state = initialState, action) => {
         ...state,
         listChats: [...state.listChats, action.payload]
       }
+    case types.messageLoadChats:
+      return {
+        ...state,
+        listChats: action.payload
+      }
     case types.messageChangeReceivor:
       return {
         ...state,

@@ -7,6 +7,7 @@ import './chatList.css'
 
 // Actions
 import { messageAddChat } from '../../actions/events'
+import { startLogout } from '../../actions/auth'
 
 const customStyles = {
   content: {
@@ -30,6 +31,10 @@ const ChatList = () => {
   const [nameReceivor, setNameReceivor] = useState('')
   const [searchInput, setSearchInput] = useState('')
 
+  // useEffect(() => {
+  //   dispatch(messageStartLoadChats())
+  // }, [])
+
   const openModal = () => {
     setModalIsOpen(true)
   }
@@ -44,6 +49,10 @@ const ChatList = () => {
 
   const handleSearchInputChange = ({ target }) => {
     setSearchInput(target.value)
+  }
+
+  const handleCloseSesion = () => {
+    dispatch(startLogout())
   }
 
   const handleCreate = (e) => {
@@ -84,6 +93,7 @@ const ChatList = () => {
         </div>
       </Modal>
       <div className='chat-list--searcher'>
+        <button onClick={handleCloseSesion}>Cerrar sesión</button>
         <input
           placeholder='Buscar...'
           onChange={handleSearchInputChange}

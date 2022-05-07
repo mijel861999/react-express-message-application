@@ -10,7 +10,10 @@ import { useForm } from '../../hooks/useForm'
 import './login.css'
 
 // Actions
-import { SetLogin } from '../../actions/auth'
+import { startLogin } from '../../actions/auth'
+
+// Images
+import logo from '../../images/Logo.png'
 
 export const Login = () => {
   const dispatch = useDispatch()
@@ -24,12 +27,19 @@ export const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault()
-    dispatch(SetLogin({ user: lUser, password: lPassword }))
+    dispatch(startLogin(lUser, lPassword))
   }
 
   return (
     <div className='login--container'>
-      <h1>LOGIN</h1>
+      <div className='title--container'>
+        <img
+          src={logo}
+          alt='Logo Image'
+        />
+        <h1>LOGIN</h1>
+        <p>La mejor manera de comunicarte.</p>
+      </div>
       <form
         className='login-form'
         onSubmit={handleLogin}
@@ -48,11 +58,19 @@ export const Login = () => {
           value={lPassword}
           onChange={handleInputChange}
         />
+        <section className='remenber-register--container'>
+          <div>
+            <input
+              className='login-form--checkbox'
+              type='checkbox'
+              name='remember'
+            />
+            <label>Recordarme</label>
+          </div>
+          <a href='/'>Forgot password?</a>
+        </section>
         <button>
           Ingresar
-        </button>
-        <button>
-          Registro
         </button>
       </form>
     </div>

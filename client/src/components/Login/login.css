@@ -4,18 +4,43 @@
   color: white;
 }
 
+.title--container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 5rem;
+}
+
+.title--container p{
+  font-size: 1.8rem;
+  text-align: center;
+  color: white;
+  margin: 30px 0px;
+}
+
+.title--container img {
+  width: 100px;
+  margin: 20px 0px;
+}
+
 .login-form {
+  min-width: 310px;
   display: flex;
   flex-direction: column;
 }
 
 .login-form button {
-  margin: 8px 0px;
-  padding: 6px 20px;
+  height: 40px;
+  margin: 14px;
+  padding: auto 0px;
   font-size: 1.4rem;
-  background-color: #0cf25d;
+  font-weight: bold;
+  color: white;
+  background-color: #0bc04a;
   border: none;
-  border-radius: 9px;
+  border-radius: 14px;
   cursor: pointer;
 }
 
@@ -24,8 +49,47 @@
 }
 
 input {
-  padding: 15px;
-  width: 200px;
+  width: 300px;
   height: 30px;
-  margin: 10px;
+  padding: 23px 20px;
+  margin: 14px;
+  color: white;
+  background-color: #0d698d;
+  border: none;
+  border-radius: 14px;
+}
+
+::placeholder {
+  color: white;
+}
+
+.remenber-register--container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0px 20px;
+}
+
+.remenber-register--container div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 20px 0px;
+}
+
+.remenber-register--container div input {
+  width: auto;
+  margin: 0px 5px;
+}
+
+.remenber-register--container div label {
+  font-size: 1.4rem;
+  color: white;
+  font-weight: bold;
+}
+
+.remenber-register--container a {
+  font-size: 1.4rem;
+  color: #0cb447;
 }

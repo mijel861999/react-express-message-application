@@ -5,6 +5,7 @@ const cors = require('cors')
 const { Server } = require('socket.io')
 const connectionMysql = require('./mysql/mysql')
 const routerApi = require('./routes')
+require('dotenv').config()
 
 
 // Mysql

@@ -6,6 +6,8 @@ export const types = {
   messagePutFirstMessage: '[events] Put first message',
 
   messageAddChat: '[events] Add chat',
+  messageStartLoadChats: '[events] Start Load chats',
+  messageLoadChats: '[events] Load chats',
 
   messageLoadMessages: '[events] Load messages',
   messageAddMessage: '[events] Add message',
@@ -13,5 +15,8 @@ export const types = {
 
   messageChangeReceivor: '[events] Change receivor',
 
-  authLogin: '[auth] Login'
+  authLogin: '[auth] Login',
+  authLogout: '[auth] Logout',
+  authStartChecking: '[auth] Start checking',
+  authCheckingFinish: '[auth] Checking finish'
 }
