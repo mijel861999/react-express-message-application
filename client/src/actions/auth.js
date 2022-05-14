@@ -6,6 +6,7 @@ export const startLogin = (email, password) => {
     try {
       const resp = await fetchSinToken('users', { email, password }, 'POST')
       const body = await resp.json()
+
       console.log(body)
 
       if (body.ok) {
@@ -13,6 +14,7 @@ export const startLogin = (email, password) => {
         localStorage.setItem('token', body.token)
         localStorage.setItem('token-init-date', new Date().getTime())
         /* eslint-enable */
+        console.log(body.username)
         dispatch(SetLogin({ user: body.username, email: body.email }))
       } else {
         console.log('Usuario incorrecto')
@@ -31,7 +33,6 @@ export const SetLogin = (user) => ({
 export const startChecking = () => {
   return async (dispatch) => {
     try {
-      console.log('startChecking')
       const resp = await fetchConToken('users/renew')
       const body = await resp.json()
 
@@ -40,7 +41,7 @@ export const startChecking = () => {
         localStorage.setItem('token', body.token)
         localStorage.setItem('token-init-date', new Date().getTime())
 
-        dispatch(SetLogin({ id: body.id, user: body.names }))
+        dispatch(SetLogin({ user: body.username, email: body.email }))
       } else {
         console.log(body)
         dispatch(checkingFinish())
@@ -67,7 +68,7 @@ export const startRegister = (user) => {
       /* eslint-disable */
       localStorage.setItem('token', body.token)
       localStorage.setItem('token-init-date', new Date().getTime())
-      dispatch(SetLogin({ user: rUser }))
+      dispatch(SetLogin({ user: rUser, email: rEmail }))
       /* esling-enable */
     }
   }

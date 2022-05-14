@@ -125,14 +125,26 @@ const renewUser = async (req, res = response) => {
   const id = req.id
   const names = req.names
 
-  const token = await generarJWT(id, names)
-  res.json({
-    ok: true,
-    msg: 'Renew',
-    id,
-    names,
-    token
-  })
+  try {
+    const sqlSearch = `SELECT * FROM user WHERE id = '${id}'`
+    connectionMysql.query(sqlSearch, async (err, results) => {
+      if(err) throw err
+      if(results.length > 0) {
+        const token = await generarJWT(id, names)
+        res.json({
+          ok: true,
+          msg: 'Renew',
+          id,
+          names,
+          username: results[0].username,
+          email: results[0].email,
+          token
+        })
+      }
+    })
+  } catch (e) {
+    console.error(e)
+  } 
 }
 
 module.exports = {

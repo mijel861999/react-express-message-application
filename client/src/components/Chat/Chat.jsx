@@ -22,7 +22,6 @@ export const Chat = () => {
   // RECIBE MENSAJE
   useEffect(() => {
     dispatch(messageReceiveMessage())
-    console.log('Recibiendo mensajes')
   }, [socket])
 
   // Cargar mensajes

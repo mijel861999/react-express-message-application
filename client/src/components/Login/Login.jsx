@@ -19,8 +19,8 @@ export const Login = () => {
   const dispatch = useDispatch()
 
   const [formLoginInputs, handleInputChange] = useForm({
-    lUser: 'mijelpalcabello',
-    lPassword: 'miguel861999'
+    lUser: '',
+    lPassword: ''
   })
 
   const { lUser, lPassword } = formLoginInputs

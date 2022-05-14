@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 // Components
 import { Chat } from '../../components/Chat/Chat'
@@ -13,11 +13,12 @@ import './chatPage.css'
 
 const ChatPage = () => {
   const dispatch = useDispatch()
-  // const { listChats } = useSelector(state => state.messages)
+  const { user } = useSelector(state => state.auth)
 
   useEffect(() => {
-    dispatch(messageStartLoadChats())
-  }, [])
+    console.log('Cargando mensajes')
+    dispatch(messageStartLoadChats(user))
+  }, [user])
 
   return (
     <div className='App'>

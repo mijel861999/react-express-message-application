@@ -1,6 +1,6 @@
 import { socket } from '../Socket/Socket'
 import { types } from '../types/types'
-import axios from 'axios'
+import { fetchConToken } from '../helpers/fetch'
 
 export const messageJoinAllRooms = () => {
   return (dispatch, getState) => {
@@ -14,14 +14,23 @@ export const messageJoinAllRooms = () => {
   }
 }
 
-export const messageStartLoadChats = () => {
-  return (dispatch) => {
-    axios.get('http://localhost:3001/api/v1/chat/mijelpalcabello')
-      .then(res => {
-        console.log(res.data)
-        dispatch(messageLoadChats(res.data))
+export const messageStartLoadChats = (user) => {
+  return async (dispatch) => {
+    try {
+      console.log('messageStartLoadChats')
+      console.log(user)
+      const resp = await fetchConToken(`chat/:${user}`)
+      const body = await resp.json()
+
+      if (body.ok) {
+        dispatch(messageLoadChats(body.resultsChats))
         dispatch(messageJoinAllRooms())
-      })
+      } else {
+        console.log(body)
+      }
+    } catch (e) {
+      console.error(e)
+    }
   }
 }
 
@@ -74,6 +83,12 @@ const messageSetRoomId = (roomId) => ({
 export const messageSendMessage = (message) => {
   return async () => {
     await socket.emit('send_message', message)
+  }
+}
+
+export const messageStartAddChats = () => {
+  return (dispatch) => {
+
   }
 }
 
