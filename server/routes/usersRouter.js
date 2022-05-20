@@ -3,7 +3,7 @@ const express = require('express')
 const router = express.Router()
 const connectionMysql = require('../mysql/mysql')
 
-const { createUser, chakeUser, renewUser, loginUser } = require('../controllers/auth')
+const { createUser, deleteUser, renewUser, loginUser } = require('../controllers/auth')
 
 const { check } = require('express-validator')
 const { validarCampos } = require('../middlewares/validar-campos')
@@ -19,7 +19,7 @@ const { validarJWT } = require('../middlewares/validar-jwt')
 //             if (results.length > 0) {
 //                 res.json(results)
 //             } else {
-//                 res.send('Not results')
+//       router.get('/prueba' , validarJWT, chakeUser)          res.send('Not results')
 //             }
 //         })
 // })
