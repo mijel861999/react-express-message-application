@@ -7,7 +7,7 @@ import { Chat } from '../../components/Chat/Chat'
 import ChatList from '../../components/ChatList/ChatList'
 
 // Actions
-import { /* messageJoinAllRooms, */ messageStartLoadChats } from '../../actions/events'
+import { StartLoadChats } from '../../actions/chats'
 
 import './chatPage.css'
 
@@ -16,8 +16,7 @@ const ChatPage = () => {
   const { user } = useSelector(state => state.auth)
 
   useEffect(() => {
-    console.log('Cargando mensajes')
-    dispatch(messageStartLoadChats(user))
+    dispatch(StartLoadChats(user))
   }, [user])
 
   return (

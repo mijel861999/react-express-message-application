@@ -17,7 +17,8 @@
     "react-router-dom": "^6.3.0",
     "redux-thunk": "^2.4.1",
     "socket.io-client": "^4.4.1",
-    "standard": "^16.0.4"
+    "standard": "^16.0.4",
+    "sweetalert2": "^11.4.14"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^1.0.7",

@@ -34,16 +34,7 @@ router.post('/add', [
     validarCampos
 ], createUser)
 
-router.get('/renew', validarJWT, renewUser)
 
-router.get('/prueba', chakeUser)
-
-router.put('/update/:id', (req, res) => {
-    res.send('Update user')
-})
-
-router.delete('/delete/:id', (req, res) => {
-    res.send('Delete user')
-})
+router.delete('/delete/:id', deleteUser)
 
 module.exports = router

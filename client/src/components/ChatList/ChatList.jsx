@@ -6,7 +6,7 @@ import Modal from 'react-modal'
 import './chatList.css'
 
 // Actions
-import { messageAddChat } from '../../actions/events'
+import { StartAddChat } from '../../actions/chats'
 import { startLogout } from '../../actions/auth'
 
 const customStyles = {
@@ -25,7 +25,7 @@ Modal.setAppElement('#root')
 const ChatList = () => {
   const dispatch = useDispatch()
   const { user } = useSelector(state => state.auth)
-  const { listChats } = useSelector(state => state.messages)
+  const { listChats } = useSelector(state => state.chat)
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [nameReceivor, setNameReceivor] = useState('')
@@ -57,19 +57,23 @@ const ChatList = () => {
 
   const handleCreate = (e) => {
     e.preventDefault()
-    dispatch(messageAddChat({
+    // { room , status, receiver, last_message, hour }
+    dispatch(StartAddChat({
+      roomId: '',
+      user,
+      status: 1,
       receiver: nameReceivor,
       lastMessage: 'No ha habido mensajes aún',
       hour: new Date(Date.now()).getHours() +
         ':' +
-        new Date(Date.now()).getMinutes(),
-      roomId: user + '-' + nameReceivor
+        new Date(Date.now()).getMinutes()
     }))
     closeModal()
     setNameReceivor('')
   }
   return (
     <div className='chat-list'>
+      <h1>{user}</h1>
       <Modal
         isOpen={modalIsOpen}
         style={customStyles}

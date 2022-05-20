@@ -1,5 +1,6 @@
 import { fetchConToken, fetchSinToken } from '../helpers/fetch'
 import { types } from '../types/types'
+import Swal from 'sweetalert2/dist/sweetalert2.all.min.js'
 
 export const startLogin = (email, password) => {
   return async (dispatch) => {
@@ -7,17 +8,14 @@ export const startLogin = (email, password) => {
       const resp = await fetchSinToken('users', { email, password }, 'POST')
       const body = await resp.json()
 
-      console.log(body)
-
       if (body.ok) {
         /* eslint-disable */
         localStorage.setItem('token', body.token)
         localStorage.setItem('token-init-date', new Date().getTime())
         /* eslint-enable */
-        console.log(body.username)
         dispatch(SetLogin({ user: body.username, email: body.email }))
       } else {
-        console.log('Usuario incorrecto')
+        Swal.fire('Error', 'Usuario o contraseña incorrectos', 'error')
       }
     } catch (e) {
       console.error(e)

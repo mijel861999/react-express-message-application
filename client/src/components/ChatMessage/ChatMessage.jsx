@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useDispatch } from 'react-redux'
-import { messageStartSetRoomId, messageChangeReceivor } from '../../actions/events'
+import { messageChangeReceivor, SetRoomIdChat } from '../../actions/events'
 
 import './chatMessage.css'
 
@@ -10,7 +10,7 @@ const ChatMessage = ({ chat }) => {
 
   const handleActiveRoom = () => {
     dispatch(messageChangeReceivor(chat.receiver))
-    dispatch(messageStartSetRoomId(chat.room))
+    dispatch(SetRoomIdChat(chat.room))
   }
 
   return (
