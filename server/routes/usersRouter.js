@@ -34,6 +34,8 @@ router.post('/add', [
     validarCampos
 ], createUser)
 
+router.get('/renew', validarJWT, renewUser)
+
 
 router.delete('/delete/:id', deleteUser)
 
