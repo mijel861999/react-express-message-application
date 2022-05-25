@@ -40,7 +40,8 @@ const initialState = {
   listMessages: [],
   // listChats: [],
   roomId: '',
-  receivor: ''
+  receivor: '',
+  receivorId: null
 }
 
 export const messageReducer = (state = initialState, action) => {
@@ -48,12 +49,6 @@ export const messageReducer = (state = initialState, action) => {
     case types.messageSetRoomId:
       return {
         ...state,
-        listChats: state.listChats.map(chat => {
-          if (chat.roomId === action.payload) {
-            chat.isRead = true
-          }
-          return chat
-        }),
         roomId: action.payload
       }
     case types.messageChangeReceivor:

@@ -74,6 +74,7 @@ const ChatList = () => {
   return (
     <div className='chat-list'>
       <h1>{user}</h1>
+      <button className='chat-list-button' onClick={handleCloseSesion}>Logout</button>
       <Modal
         isOpen={modalIsOpen}
         style={customStyles}
@@ -97,7 +98,6 @@ const ChatList = () => {
         </div>
       </Modal>
       <div className='chat-list--searcher'>
-        <button onClick={handleCloseSesion}>Cerrar sesión</button>
         <input
           placeholder='Buscar...'
           onChange={handleSearchInputChange}

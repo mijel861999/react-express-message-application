@@ -6,3 +6,7 @@
 .chat-message__active {
   background-color: #0ac24a;
 }
+
+.chat-list-button {
+  padding: 5px;
+}

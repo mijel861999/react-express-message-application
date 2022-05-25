@@ -9,6 +9,7 @@ const ChatMessage = ({ chat }) => {
   const dispatch = useDispatch()
 
   const handleActiveRoom = () => {
+    console.log(chat)
     dispatch(messageChangeReceivor(chat.receiver))
     dispatch(SetRoomIdChat(chat.room))
   }

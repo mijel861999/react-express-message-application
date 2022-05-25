@@ -41,7 +41,6 @@ export const startChecking = () => {
 
         dispatch(SetLogin({ user: body.username, email: body.email }))
       } else {
-        console.log(body)
         dispatch(checkingFinish())
       }
     } catch (e) {

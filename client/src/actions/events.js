@@ -4,7 +4,8 @@ import { types } from '../types/types'
 export const messageReceiveMessage = () => {
   return (dispatch, getState) => {
     socket.on('receive_message', messg => {
-      const { roomId, listChats } = getState().messages
+      const { listChats } = getState().chat
+      const { roomId } = getState().messages
       console.log(listChats)
       if (roomId === messg.roomId) {
         listChats.forEach((chat, index) => {
@@ -23,6 +24,17 @@ export const messageReceiveMessage = () => {
         dispatch(messageSetNewMessage(messg))
       }
     })
+  }
+}
+
+export const startSetRoomId = () => {
+  return (dispatch) => {
+    // listChats: state.listChats.map(chat => {
+    //   if (chat.roomId === action.payload) {
+    //     chat.isRead = true
+    //   }
+    //   return chat
+    // })
   }
 }
 
